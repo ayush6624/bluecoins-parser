@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon",
     "build": "tsc",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "studio": "prisma studio"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +20,9 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "@prisma/client": "^3.8.1"
+    "@prisma/client": "^3.8.1",
+    "telegraf": "^4.6.0",
+    "transaction-sms-parser": "^1.1.0",
+    "xml-js": "^1.6.11"
   }
 }

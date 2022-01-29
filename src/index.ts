@@ -4,12 +4,9 @@ const prisma = new PrismaClient();
 
 async function main() {
   // Checking
-  const d = await prisma.transactions.findFirst({
-    where: {
-      itemID: 65,
-    },
-  });
-  console.log('result ->', d.accountID);
+  const d = await prisma.transactions.findMany({});
+  // console.log('result ->', d.map((x) => x.notes).join('\n'));
+
 }
 
 main()

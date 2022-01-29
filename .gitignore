@@ -1,3 +1,5 @@
 node_modules/*
 dist/
 prisma/bluecoins.fydb
+*.json
+*.xml
