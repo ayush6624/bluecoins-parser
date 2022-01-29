@@ -1,0 +1,203 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./bluecoins.fydb"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model AccountingGroup {
+  accountingGroupTableID Int     @id @default(autoincrement())
+  accountGroupName       String?
+
+  @@map("ACCOUNTINGGROUPTABLE")
+}
+
+model Accounts {
+  accountsTableID            Int     @id @default(autoincrement())
+  accountName                String?
+  accountTypeID              Int?
+  accountHidden              Int?
+  accountCurrency            String?
+  accountConversionRateNew   Float?
+  currencyChanged            Int?
+  creditLimit                Int?
+  cutOffDa                   Int?
+  creditCardDueDate          Int?
+  cashBasedAccounts          Int?
+  accountSelectorVisibility  Int?
+  accountsExtraColumnInt1    Int?
+  accountsExtraColumnInt2    Int?
+  accountsExtraColumnString1 String?
+  accountsExtraColumnString2 String?
+
+  @@index([accountTypeID], map: "accountsTable1")
+  @@map("ACCOUNTSTABLE")
+}
+
+model AccountType {
+  accountTypeTableID Int     @id @default(autoincrement())
+  accountTypeName    String?
+  accountingGroupID  Int?
+
+  @@index([accountingGroupID], map: "accountsTypeTable1")
+  @@map("ACCOUNTTYPETABLE")
+}
+
+model CategoryGroup {
+  categoryGroupTableID Int     @id @default(autoincrement())
+  categoryGroupName    String?
+
+  @@map("CATEGORYGROUPTABLE")
+}
+
+model ChildCategory {
+  categoryTableID            Int     @id @default(autoincrement())
+  childCategoryName          String?
+  parentCategoryID           Int?
+  budgetAmount               Int?
+  budgetCustomSetup          String?
+  budgetPeriod               Int?
+  budgetEnabledCategoryChild Int?
+  childCategoryIcon          String?
+  categorySelectorVisibility Int?
+  categoryExtraColumnInt1    Int?
+  categoryExtraColumnInt2    Int?
+  categoryExtraColumnString1 String?
+  categoryExtraColumnString2 String?
+
+  @@index([parentCategoryID], map: "categoryChildTable1")
+  @@map("CHILDCATEGORYTABLE")
+}
+
+model Filters {
+  filtersTableID Int     @id @default(autoincrement())
+  filtername     String?
+  filterJSON     String?
+}
+
+model Item {
+  itemTableID            Int     @id @default(autoincrement())
+  itemName               String?
+  itemAutoFillVisibility Int?
+
+  @@map("ITEMTABLE")
+}
+
+model Labels {
+  labelsTableID       Int     @id @default(autoincrement())
+  labelName           String?
+  transactionIDLabels Int?
+
+  @@map("LABELSTABLE")
+}
+
+model Notification {
+  smsTableID                    Int     @id @default(autoincrement())
+  notificationPackageName       String?
+  notificationAppName           String?
+  notificationDefaultName       String?
+  notificationSenderCategoryID  Int?
+  notificationSenderAccountID   Int?
+  notificationSenderAmountOrder Int?
+
+  @@map("NOTIFICATIONTABLE")
+}
+
+model ParentCategory {
+  parentCategoryTableID            Int     @id @default(autoincrement())
+  parentCategoryName               String?
+  categoryGroupID                  Int?
+  budgetAmountCategoryParent       Int?
+  budgetCustomSetupParent          String?
+  budgetPeriodCategoryParent       Int?
+  budgetEnabledCategoryParent      Int?
+  categoryParentExtraColumnInt1    Int?
+  categoryParentExtraColumnInt2    Int?
+  categoryParentExtraColumnString1 String?
+  categoryParentExtraColumnString2 String?
+
+  @@index([categoryGroupID], map: "categoryParentTable1")
+  @@map("PARENTCATEGORYTABLE")
+}
+
+model Picture {
+  pictureTableID  Int     @id @default(autoincrement())
+  pictureFileName String?
+  transactionID   Int?
+
+  @@map("PICTURETABLE")
+}
+
+model Settings {
+  settingsTableID Int     @id @default(autoincrement())
+  defaultSettings String?
+
+  @@map("SETTINGSTABLE")
+}
+
+model Sms {
+  smsTableID        Int     @id @default(autoincrement())
+  senderName        String?
+  senderDefaultName String?
+  senderCategoryID  Int?
+  senderAccountID   Int?
+  senderAmountOrder Int?
+
+  @@map("SMSSTABLE")
+}
+
+model Transactions {
+  transactionsTableID             Int       @id @default(autoincrement())
+  itemID                          Int?
+  amount                          Int?
+  transactionCurrency             String?
+  conversionRateNew               Float?
+  date                            DateTime? @default(now())
+  transactionTypeID               Int?
+  categoryID                      Int?
+  accountID                       Int?
+  notes                           String?
+  status                          Int?
+  accountReference                Int?
+  accountPairID                   Int?
+  uidPairID                       Int?
+  deletedTransaction              Int?
+  newSplitTransactionID           Int?
+  transferGroupID                 Int?
+  reminderTransaction             Int?
+  reminderGroupID                 Int?
+  reminderFrequency               Int?
+  reminderRepeatEvery             Int?
+  reminderEndingType              Int?
+  reminderStartDate               DateTime?
+  reminderEndDate                 DateTime?
+  reminderAfterNoOfOccurences     Int?
+  reminderAutomaticLogTransaction Int?
+  reminderRepeatByDayOfMonth      Int?
+  reminderExcludeWeekend          Int?
+  reminderWeekDayMoveSetting      Int?
+  reminderUnbilled                Int?
+  creditCardInstallment           Int?
+  reminderVersion                 Int?
+  dataExtraColumnString1          String?
+
+  @@index([categoryID], map: "transactionsTable2")
+  @@index([accountID], map: "transactionsTable1")
+  @@map("TRANSACTIONSTABLE")
+}
+
+model TransactionType {
+  transactionTypeTableID Int     @id @default(autoincrement())
+  transactionTypeName    String?
+
+  @@map("TRANSACTIONTYPETABLE")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by the Prisma Client.
+model android_metadata {
+  locale String?
+
+  @@ignore
+}
