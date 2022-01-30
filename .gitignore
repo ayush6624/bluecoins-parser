@@ -3,3 +3,6 @@ dist/
 prisma/bluecoins.fydb
 *.json
 *.xml
+*.env
+*.http
+tracker_file
